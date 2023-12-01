@@ -6,29 +6,6 @@ import keyboard
 
 texto = str("")
 
-def escribir_automatico():
-    r = sr.Recognizer()
-    with sr.Microphone() as source:
-        print("Di algo...")
-        while True:
-            audio = r.listen(source)
-
-            try:
-                texto = r.recognize_google(audio, language="es-ES")
-                print(texto)
-                with open("notas.txt", "a") as archivo:
-                    archivo.write(texto + "\n")
-            except sr.UnknownValueError:
-                print("No se pudo reconocer el audio")
-            except sr.RequestError as e:
-                print("Error al solicitar los resultados del reconocimiento de voz: {0}".format(e))
-            except KeyboardInterrupt:
-                break
-
-    print("Finalizando...")
-    os.system("notepad.exe notas.txt")
-hilo_secundario = threading.Thread(target=escribir_automatico)
-hilo_secundario.start()
 
 def buscar_en_youtube(termino):
     busqueda = termino.replace("en YouTube", "")
